@@ -1,3 +1,13 @@
+import Login from './views/Auth/Login';
+import Home from './views/Home/Home';
+import Welcome from './views/Welcome/Welcome';
+
 export default function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <main>
+      <Welcome />
+      <Login />
+      <Home />
+    </main>
+  );
 }
