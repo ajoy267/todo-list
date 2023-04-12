@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from '../../hooks/useForm';
 
-export default function LoginForm({ label = 'Sign In', onSubmit }) {
+export default function LoginForm({ label = 'Authenticating...', onSubmit }) {
   const { formState, formError, handleFormChange, setFormError } = useForm({
     email: '',
     password: '',
@@ -27,6 +27,7 @@ export default function LoginForm({ label = 'Sign In', onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit}>
+      <legend>{label}</legend>
       <section>
         <label htmlFor="email">Email</label>
         <input
