@@ -1,5 +1,10 @@
 import React from 'react';
+import Header from '../../components/Header/Header';
 
 export default function Login() {
-  return <div>Login</div>;
+  return (
+    <>
+      <p>In progress</p>
+    </>
+  );
 }
