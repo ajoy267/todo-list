@@ -1,5 +1,12 @@
 import React from 'react';
+import Header from '../../components/Header/Header';
+import WelcomeMessage from '../../components/Welcome/WelcomeMessage';
 
 export default function Welcome() {
-  return <div>Welcome</div>;
+  return (
+    <>
+      <Header />
+      <WelcomeMessage />
+    </>
+  );
 }
