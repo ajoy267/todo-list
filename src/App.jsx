@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { UserProvider } from './context/UserContext';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Login from './views/Auth/Login';
 import Home from './views/Home/Home';
 import Welcome from './views/Welcome/Welcome';
@@ -21,9 +22,9 @@ export default function App() {
             <Route path="/signup">
               <Login isSigningup />
             </Route>
-            <Route path="/home">
+            <ProtectedRoute exact path="/home">
               <Home />
-            </Route>
+            </ProtectedRoute>
           </Switch>
         </Router>
       </UserProvider>
