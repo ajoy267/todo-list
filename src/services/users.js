@@ -1,23 +1,26 @@
 import { client } from './client';
 
 export function getUser() {
-  return client.auth.user();
+  return client.auth.getUser();
 }
 
 export function getSession() {
-  return client.auth.session();
+  return client.auth.getSession();
 }
 
 export async function signUpUser(email, password) {
-  const { user, error } = await client.auth.signUp({ email, password });
+  const { data, error } = await client.auth.signUp({ email, password });
   if (error) throw error;
-  return user;
+  return data;
 }
 
 export async function signInUser(email, password) {
-  const { user, error } = await client.auth.signIn({ email, password });
+  const { data, error } = await client.auth.signInWithPassword({
+    email: email,
+    password: password,
+  });
   if (error) throw error;
-  return user;
+  return data;
 }
 
 export async function signOutUser() {
