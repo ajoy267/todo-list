@@ -7,7 +7,7 @@ import Header from './components/Header/Header';
 
 export default function App() {
   return (
-    <main>
+    <>
       <UserProvider>
         <Router>
           <Header />
@@ -27,6 +27,6 @@ export default function App() {
           </Switch>
         </Router>
       </UserProvider>
-    </main>
+    </>
   );
 }

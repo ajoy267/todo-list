@@ -15,8 +15,8 @@ export default function Login({ isSigningup = false }) {
       } else {
         const loggedIn = await signInUser(email, password);
         setUser({ id: loggedIn.id, email: loggedIn.email });
-        history.replace('/home');
       }
+      history.replace('/home');
     } catch (error) {
       throw error;
     }
