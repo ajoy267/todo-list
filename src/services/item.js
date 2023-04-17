@@ -1,4 +1,5 @@
 import { client } from './client';
+import { getUser } from './users';
 
 export async function getItems() {
   const res = await client.from('tasks').select('*');
@@ -19,10 +20,11 @@ export async function updateItem({ id, title, description }) {
 }
 
 export async function addItem(title, description) {
-  const res = await client
+  const { data, error } = await client
     .from('tasks')
-    .insert({ title, description, user_id: client.auth.user().id });
-  return res;
+    .insert({ title, description, user_id: getUser().id });
+  if (error) throw error;
+  return data;
 }
 
 export async function deleteItem(id) {

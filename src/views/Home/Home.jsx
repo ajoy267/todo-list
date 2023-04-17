@@ -1,25 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import TodoList from '../../components/TodoList/TodoList';
+import React, { useState } from 'react';
 import { useItem } from '../../context/ItemContext';
-import { getUserItems } from '../../services/item';
+import TaskForm from '../../components/TodoList/TaskForm';
+import { addItem, deleteItem } from '../../services/item';
+import TodoList from '../../components/TodoList/TodoList';
 
 export default function Home() {
-  const { item, setItem } = useItem();
-  const [loading, setLoading] = useState(true);
+  const { item } = useItem();
+  const [isFormVisible, setFormVisible] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getUserItems();
-      setItem(data);
-      setLoading(false);
-      console.log('data', data);
-    };
-    fetchData();
-  }, []);
+  const handleAdd = async (title, description) => {
+    await addItem(title, description);
+    setFormVisible(false);
+  };
 
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
+  const handleDelete = async (item) => {
+    if (confirm(`Are you sure you want to delete "${item.title}"?`))
+      await deleteItem(item.id);
+  };
 
-  return <TodoList item={item} />;
+  return (
+    <>
+      <h2>Tasks</h2>
+      {item ? (
+        <TodoList item={item.data} onDelete={handleDelete} />
+      ) : (
+        <p>Let's add some tasks to do!</p>
+      )}
+      <button onClick={() => setFormVisible((prevState) => !prevState)}>
+        {isFormVisible ? 'Cancel' : 'Add Task'}
+      </button>
+      {isFormVisible && <TaskForm item={item} onSubmit={handleAdd} />}
+    </>
+  );
 }
