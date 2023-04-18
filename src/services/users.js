@@ -1,15 +1,9 @@
 import { client } from './client';
-import { parseData } from './client';
 
-export async function getUser() {
-  const {
-    data: { user },
-  } = await client.auth.getUser();
-  return parseData(user);
-}
-
-export function getSession() {
-  return client.auth.getSession();
+export async function getSession() {
+  const { data, error } = await client.auth.getSession();
+  if (error) throw error;
+  return data;
 }
 
 export async function signUpUser(email, password) {

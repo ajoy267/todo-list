@@ -7,7 +7,6 @@ import TodoList from '../../components/TodoList/TodoList';
 export default function Home() {
   const { item } = useItem();
   console.log('item', item);
-  const task = item.data;
   const [isFormVisible, setFormVisible] = useState(false);
 
   const handleAdd = async (title, description) => {
