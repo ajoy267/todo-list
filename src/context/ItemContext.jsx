@@ -5,7 +5,7 @@ import {
   useReducer,
   useState,
 } from 'react';
-import { addItem, deleteItem, getItems, updateItem } from '../services/item';
+import { addItems, deleteItems, getItems, updateItems } from '../services/item';
 import { parseItem, parseItems } from '../utils/itemParser';
 import { useUser } from './UserContext';
 
@@ -31,6 +31,7 @@ const ItemProvider = ({ children }) => {
   const [error, setError] = useState('');
   const [itemStore, dispatch] = useReducer(itemReducer, []);
   const { user } = useUser();
+  console.log('user', user);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -46,7 +47,7 @@ const ItemProvider = ({ children }) => {
   const addItem = async ({ title, description }) => {
     setLoading(true);
     try {
-      const [item] = await addItem({ userId: user.id, title, description });
+      const [item] = await addItems({ userId: user.id, title, description });
       const payload = parseItem(item);
       dispatch({ type: 'create', payload });
       return payload;
@@ -64,7 +65,7 @@ const ItemProvider = ({ children }) => {
   const updateItem = async ({ id, title, description }) => {
     setLoading(true);
     try {
-      const [item] = await updateItem(id, { title, description });
+      const [item] = await updateItems(id, { title, description });
       const payload = parseItem(item);
       dispatch({ type: 'update', payload });
       return parseItem(payload);
@@ -78,7 +79,7 @@ const ItemProvider = ({ children }) => {
   const deleteItem = async (id) => {
     setLoading(true);
     try {
-      const [item] = await deleteItem(id);
+      const [item] = await deleteItems(id);
       dispatch({ type: 'delete', payload: { id: item.id } });
       return parseItem(item);
     } catch (error) {

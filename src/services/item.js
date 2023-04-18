@@ -2,8 +2,9 @@ import { client } from './client';
 import { getSession } from './users';
 
 export async function getItems() {
-  const res = await client.from('tasks').select('*');
-  return res;
+  const { data: tasks, error } = await client.from('tasks').select('*');
+  if (error) throw error;
+  return tasks;
 }
 
 export async function getItemById(id) {
@@ -11,7 +12,7 @@ export async function getItemById(id) {
   return res;
 }
 
-export async function updateItem({ id, title, description }) {
+export async function updateItems({ id, title, description }) {
   const res = await client
     .from('tasks')
     .update({ title, description })
@@ -19,7 +20,7 @@ export async function updateItem({ id, title, description }) {
   return res;
 }
 
-export async function addItem(title, description) {
+export async function addItems(title, description) {
   const { data, error } = await client.from('tasks').insert({
     title,
     description,
@@ -29,7 +30,7 @@ export async function addItem(title, description) {
   return data;
 }
 
-export async function deleteItem(id) {
+export async function deleteItems(id) {
   const res = await client.from('tasks').delete().match({ id: id });
   return res;
 }
