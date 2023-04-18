@@ -1,7 +1,11 @@
 import { client } from './client';
+import { parseData } from './client';
 
-export function getUser() {
-  return client.auth.getUser();
+export async function getUser() {
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+  return parseData(user);
 }
 
 export function getSession() {

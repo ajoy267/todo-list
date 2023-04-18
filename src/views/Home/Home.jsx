@@ -6,6 +6,8 @@ import TodoList from '../../components/TodoList/TodoList';
 
 export default function Home() {
   const { item } = useItem();
+  console.log('item', item);
+  const task = item.data;
   const [isFormVisible, setFormVisible] = useState(false);
 
   const handleAdd = async (title, description) => {
@@ -29,7 +31,7 @@ export default function Home() {
       <button onClick={() => setFormVisible((prevState) => !prevState)}>
         {isFormVisible ? 'Cancel' : 'Add Task'}
       </button>
-      {isFormVisible && <TaskForm item={item} onSubmit={handleAdd} />}
+      {isFormVisible && <TaskForm item={item.data} onSubmit={handleAdd} />}
     </>
   );
 }

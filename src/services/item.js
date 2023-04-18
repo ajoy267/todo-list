@@ -20,6 +20,7 @@ export async function updateItem({ id, title, description }) {
 }
 
 export async function addItem(title, description) {
+  console.log('getUser()', getUser().id);
   const { data, error } = await client
     .from('tasks')
     .insert({ title, description, user_id: getUser().id });
