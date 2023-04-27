@@ -6,6 +6,13 @@ export async function getSession() {
   return data;
 }
 
+export async function getUser() {
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+  return user;
+}
+
 export async function signUpUser(email, password) {
   const { data, error } = await client.auth.signUp({ email, password });
   if (error) throw error;
